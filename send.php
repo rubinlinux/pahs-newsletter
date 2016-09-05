@@ -17,7 +17,7 @@ $mail             = new PHPMailer(); // defaults to using php "mail()"
 $body             = file_get_contents('newsletter.html');
 $body             = eregi_replace("[\]",'',$body);
 
-#$mail->SetFrom('rubin@afternet.org', 'Rubin');
+$mail->SetFrom('rubin@afternet.org', 'Alex Schumann');
 $mail->AddAddress("$to");
 $mail->Subject = "Holt Quick News";
 $mail->MsgHTML($body);
