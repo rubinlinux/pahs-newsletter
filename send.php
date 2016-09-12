@@ -14,7 +14,7 @@ else {
 
 $mail             = new PHPMailer(); // defaults to using php "mail()"
 
-$body             = file_get_contents('newsletter.html');
+$body             = file_get_contents('newsletter-v6i1.html');
 $body             = eregi_replace("[\]",'',$body);
 
 $mail->SetFrom('rubin@afternet.org', 'Alex Schumann');
