@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 require_once('libphp-phpmailer/class.phpmailer.php');
