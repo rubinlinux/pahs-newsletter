@@ -39,7 +39,7 @@ if(!$body) {
 # Protect the email from harmful char - this could be a problem.. 
 $body             = eregi_replace("[\]",'',$body);
 
-$h2t = &new html2text($body);
+$h2t = new html2text($body);
 $text = $h2t->get_text();
 
 if($to) {
