@@ -14,10 +14,10 @@ $file = '';
 
 function usage() {
    global $argv;
-   echo "Usage: {$argv[0]} --file=file.html [--send=to@address] [--text]\n";
+   echo "Usage: {$argv[0]} --file=file.html [--send=to@address] [--text] [--es]\n";
 }
 
-$opts = getopt("", array("text", "send:", "file:"));
+$opts = getopt("", array("text", "es", "send:", "file:"));
 
 if(!array_key_exists("file", $opts)) {
    usage();
@@ -48,7 +48,12 @@ if($to) {
 
    $mail->SetFrom('rubin@afternet.org', 'Alex Schumann');
    $mail->AddAddress("$to");
-   $mail->Subject = "Holt Quick News";
+   if(array_key_exists("es", $opts)) {
+      $mail->Subject = "Holt Noticias Rápidas";
+   } 
+   else {
+      $mail->Subject = "Holt Quick News";
+   }
    $mail->MsgHTML($body);
    $mail->AltBody = $text;
 
