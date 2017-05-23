@@ -46,14 +46,16 @@ $root = find_element($dom, 'header');
              <!-- content -->
              <div class="content"><table bgcolor="">
                          <tr>
-                                 <?php $img = find_element($story['children'], 'image', null) ?>
+                                 <?php $img = find_element($story['children'], 'hiddenimage') ?>
                                  <td class="small" width="75" style="vertical-align: top; padding-right:10px;"><img src="http://afternet.org/images/pahs/<?=$img['content']?>" /></td>
                                  <td>
-                                         <h4 style="margin-top: 0;"><?=wiki2html($story['content'])?></h4>
-                                        <?php foreach(find_elements($story['children'], 'general') as $p) { ?>
-                                        <p>
-                                        <?=wiki2html($p['content'])?>
-                                        </p>
+                                         <h4 style="margin-top: 0;"><?=wiki2html($story)?></h4>
+                                        <?php foreach($story['children'] as $p) { ?>
+                                            <?php if($p['type'] === 'hiddenimage') { continue; } ?>
+                                            <?php if($p['type'] === 'empty') { continue; } ?>
+                                            <p>
+                                            <?=wiki2html($p)?>
+                                            </p>
                                         <?php } ?>
                                  </td>
                          </tr>
@@ -66,17 +68,15 @@ $root = find_element($dom, 'header');
                     <tr>
                         <td align="left">
                             <small>
-                            <ul>
                               <?php $calendar = find_element($dom, 'header', 'Calendar'); 
                               //print_r($calendar);
-                              foreach(find_elements($calendar['children'], 'listitem') as $event) {
+                              foreach(find_elements($calendar['children'], 'list') as $event) {
                                  ?>
-                                 <li><?=wiki2html($event['content'])?></li>
+                                 <?=wiki2html($event)?>
                                  <?php
                               }
                               ?>
 
-                            </ul>
                             </small>
                         </td>
                     </tr>
@@ -89,16 +89,14 @@ $root = find_element($dom, 'header');
                       <td align="center"> <img src="http://afternet.org/images/pahs/volunteer.gif" alt="Volunteer"></td></tr>
                       <tr><td>
                         <small>
-                        <ul>
                               <?php
                               //print_r($Volunteer);
                               foreach(find_elements($volunteer['children'], 'listitem') as $event) {
                                  ?>
-                                 <li><?=wiki2html($event['content'])?></li>
+                                 <li><?=wiki2html($event)?></li>
                                  <?php
                               }
                               ?>
-                        </ul>
                         </small>
                       </td>
                     </tr>
