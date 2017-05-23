@@ -49,13 +49,19 @@ function parse($level) {
          //echo "\n$level)DEBUG: Adding new header node: $content\n";
          $nodes[$nodeIndex++] = array('type'=>$type, 'level'=>$newLevel, 'content'=>$content, 'children'=>$children);
       }
-      elseif(preg_match('/^\{\{(.+)\}\}/', $line, $matches)) {
+      elseif(preg_match('/^\{\{(\*?)(.+)\}\}/', $line, $matches)) {
          //echo "$level)DEBUG: Found an image: $matches[1]\n";
-         $nodes[$nodeIndex++] = array('type' => 'image', 'content'=>$matches[1]);
+         $type = $matches[1]? 'hiddenimage' : 'image';
+         $nodes[$nodeIndex++] = array('type' => $type, 'content'=>$matches[2]);
       }
-      elseif(preg_match('/^  \* (.+)/', $line, $matches)) {
+      elseif(preg_match('/^(  \* .+)/', $line, $matches)) {
          //echo "$level)DEBUG: Found a bullet point\n";
-         $nodes[$nodeIndex++] = array('type'=>'listitem', 'content'=>$matches[1]);
+         if($nodeIndex > 0 && $nodes[$nodeIndex-1]['type'] === 'list') {
+            $nodes[$nodeIndex-1]['content'] .= "\n". $matches[1];
+         }
+         else {
+            $nodes[$nodeIndex++] = array('type'=>'list', 'content'=>$matches[1]);
+         }
       }
       elseif($line === '') {
          //echo "$level)DEBUG: adding empty node\n";
@@ -64,7 +70,7 @@ function parse($level) {
       elseif($line !== '') {
          if($nodeIndex > 0 && $nodes[$nodeIndex-1]['type'] === 'general') {
             //echo "$level)DEBUG: Appending to last general node: $line\n";
-            $nodes[$nodeIndex-1]['content'] .= $line;
+            $nodes[$nodeIndex-1]['content'] .= " $line";
          }
          else {
             //echo "$level)DEBUG: Adding a new general node: $line\n";
@@ -109,7 +115,7 @@ function find_elements($dom, $type, $content = null, $recurse = False) {
    $ary = Array();
    foreach($dom as $value) {
       if(is_array($value)) {
-         if( array_key_exists('type', $value) && $value['type'] === $type
+         if( array_key_exists('type', $value) && preg_match("/^{$type}\$/", $value['type'])
              && ($content === null || $value['content'] === $content)) {
                $ary[] = $value;
          }
@@ -126,24 +132,31 @@ function find_element($dom, $type, $content = null, $recurse = False) {
    //echo "DEBUG: Finding element type=$type, content=$content...";
 
    foreach($dom as $value) {
-      if( $value['type'] === $type
-          && ($content === null || $value['content'] === $content)) {
-            //echo "Found!\n";
-            return($value);
-      }
-      if($recurse && is_array($value)) {
-         return(find_header($value, $content));
-      }
+      if(is_array($value)) {
+          if( preg_match("/^{$type}\$/", $value['type'])
+              && ($content === null || $value['content'] === $content)) {
+                //echo "Found!\n";
+                return($value);
+          }
+          if($recurse && is_array($value)) {
+             return(find_header($value, $content));
+          }
+       }
    }
    //echo "Not found :(\n";
 }
 
-function wiki2html($wikitext) {
-   $ret = htmlspecialchars($wikitext);
+function wiki2html($node) {
+   
+   $ret = htmlspecialchars($node['content']);
    $ret = preg_replace('/\[\[(http.+)\|(.+)\]\]/', '<a href="$1">$2</a>', $ret);
    $ret = preg_replace('/\[\[(http.+)\]\]/', '<a href="$1">$1</a>', $ret);
    $ret = preg_replace('/\*\*(.+)\*\*/', '<b>$1</b>', $ret);
    $ret = preg_replace('/\/\/(.+)\/\//', '<i>$1</i>', $ret);
+   if($node['type'] === 'list') {
+      $ret = preg_replace('/^  \* ([^\n]+)/sm', '<li><small>$1</small></li>', $ret);
+      $ret = "<ul>$ret</ul>";
+   }
    return $ret;
 }
 
@@ -155,6 +168,9 @@ $template = $opts['template'];
 $wikitext = file($filename);
 $wikitext =& $wikitext;
 $dom = parse(0);
+//echo "<PRE>";
+//print_r($dom);
+//echo "</PRE>";
 //echo "-->";
 include($template);
 
