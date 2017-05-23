@@ -14,16 +14,21 @@ $file = '';
 
 function usage() {
    global $argv;
-   echo "Usage: {$argv[0]} --file=file.html [--send=to@address] [--text] [--es]\n";
+   echo "Usage: {$argv[0]} --issue=vXiY [--send=to@address] [--text]\n";
 }
 
-$opts = getopt("", array("text", "es", "send:", "file:"));
+$opts = getopt("", array("text", "send:", "issue:"));
 
-if(!array_key_exists("file", $opts)) {
+if(!array_key_exists("issue", $opts)) {
    usage();
    exit;
 }
-$file = $opts['file'];
+
+// TODO: read the directory and just find all language files instead of hardcoding english & spanish
+$files = [ 
+      "newsletter-{$opts['issue']}-en.html",
+      "newsletter-{$opts['issue']}-es.html"
+];
 
 if(array_key_exists("send", $opts)) {
    $to = $opts['send'];
@@ -31,47 +36,45 @@ if(array_key_exists("send", $opts)) {
 
 $mail;
 
-$body             = file_get_contents($file);
-if(!$body) {
-   echo "ERROR: file $file doesn't seem to contain anything\n";
+foreach($files as $file) {
+    $body             = file_get_contents($file);
+    if(!$body) {
+       echo "ERROR: file $file doesn't seem to contain anything\n";
+    }
+
+    # Protect the email from harmful char - this could be a problem.. 
+    $body             = eregi_replace("[\]",'',$body);
+
+    $h2t = new html2text($body);
+    $text = $h2t->get_text();
+
+    if($to) {
+       $mail             = new PHPMailer(); // defaults to using php "mail()"
+       $mail->CharSet = 'utf-8';
+
+       $mail->SetFrom('rubin@afternet.org', 'Alex Schumann');
+       $mail->AddAddress("$to");
+       $mail->Subject = "Holt Quick News";
+       $mail->MsgHTML($body);
+       $mail->AltBody = $text;
+
+       if(!$mail->Send()) {
+         echo "Mailer Error: " . $mail->ErrorInfo;
+       } else {
+         echo "Message sent!";
+       }
+    }
+    else {
+       if(array_key_exists('text', $opts)) {
+          echo "\n========== $file ===========\n";
+          echo $text;
+          echo "\n============================\n";
+       }
+       else {
+          echo "\n========== $file ===========\n";
+          echo $body;
+          echo "\n============================\n";
+       }
+    }
+    echo "\n";
 }
-
-# Protect the email from harmful char - this could be a problem.. 
-$body             = eregi_replace("[\]",'',$body);
-
-$h2t = new html2text($body);
-$text = $h2t->get_text();
-
-if($to) {
-   $mail             = new PHPMailer(); // defaults to using php "mail()"
-   $mail->CharSet = 'utf-8';
-
-   $mail->SetFrom('rubin@afternet.org', 'Alex Schumann');
-   $mail->AddAddress("$to");
-   if(array_key_exists("es", $opts)) {
-      $mail->Subject = "Holt Noticias Rápidas";
-   } 
-   else {
-      $mail->Subject = "Holt Quick News";
-   }
-   $mail->MsgHTML($body);
-   $mail->AltBody = $text;
-
-   if(!$mail->Send()) {
-     echo "Mailer Error: " . $mail->ErrorInfo;
-   } else {
-     echo "Message sent!";
-   }
-}
-else {
-   if(array_key_exists('text', $opts)) {
-      echo $text;
-   }
-   else {
-      echo $body;
-   }
-}
-echo "\n";
-
-
-    
