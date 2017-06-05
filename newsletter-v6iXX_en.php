@@ -81,7 +81,6 @@ $root = find_element($dom, 'header');
                         </td>
                     </tr>
                     <tr><td>&nbsp;</td></tr>
-
                     <?php $volunteer = find_element($dom, 'header', 'Volunteer'); 
                       if($volunteer) {
                     ?>

@@ -40,6 +40,7 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
 <table class="body-wrap" bgcolor="" width="600">
     <tr>
        <td class="container" valign="top" align="" bgcolor="#FFFFFF">
+       <p></p>
              <!-- Left Column -->
 <?php 
       foreach(find_elements($root['children'], 'header') as $story) {
@@ -58,7 +59,6 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                                             <?=wiki2html($p)?>
                                             </p>
                                         <?php } ?>
-
                                  </td>
                          </tr>
              </table></div>
@@ -87,7 +87,6 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                     <?php $volunteer = find_element($dom, 'header', 'voluntario');
                       if($volunteer) {
                     ?>
-
                     <tr>
                       <td align="center"> <img src="http://afternet.org/images/pahs/volunteer.gif" alt="Volunteer"></td></tr>
                       <tr><td>
@@ -109,7 +108,6 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                        </small>
                     </td></tr>
                     <?php } ?>
-
                 </table>
         </td>
    </tr>
