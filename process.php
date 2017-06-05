@@ -1,23 +1,22 @@
-#!/usr/bin/php
 <?php
 
 $MAX_LEVELS = 5;
 
-function usage() {
-   global $argv;
-   echo "Usage: {$argv[0]} --source=file.txt --template=file.php[--es]\n";
-}
+//function usage() {
+//   global $argv;
+//   echo "Usage: {$argv[0]} --source=file.txt --template=file.php[--es]\n";
+//}
 
-$opts = getopt("", array("es", "source:", 'template:'));
+//$opts = getopt("", array("es", "source:", 'template:'));
 
-if(!array_key_exists("source", $opts) || !array_key_exists("template", $opts)) {
-   usage();
-   exit;
-}
+//if(!array_key_exists("source", $opts) || !array_key_exists("template", $opts)) {
+//   usage();
+//   exit;
+//}
 
-function parse($level) {
+function parse($level, &$wikitext) {
    global $MAX_LEVELS;
-   global $wikitext;
+   //global $wikitext;
    //echo "\n\n$level)DEBUG: Parse called ($level)\n";
    $nodes = array();
    $nodeIndex = 0;
@@ -45,7 +44,7 @@ function parse($level) {
              return($nodes);
          }
          $type = 'header';
-         $children = parse($newLevel);
+         $children = parse($newLevel, $wikitext);
          //echo "\n$level)DEBUG: Adding new header node: $content\n";
          $nodes[$nodeIndex++] = array('type'=>$type, 'level'=>$newLevel, 'content'=>$content, 'children'=>$children);
       }
@@ -113,6 +112,9 @@ function to_xml(SimpleXMLElement &$object, array $data)
 //var_dump($dom);
 function find_elements($dom, $type, $content = null, $recurse = False) {
    $ary = Array();
+   if(!$dom) {
+      die("Invalid dom argument passed");
+   }
    foreach($dom as $value) {
       if(is_array($value)) {
          if( array_key_exists('type', $value) && preg_match("/^{$type}\$/", $value['type'])
@@ -160,17 +162,18 @@ function wiki2html($node) {
    return $ret;
 }
 
+function makenewsletter($filename, $template) {
 
-$filename = $opts['source'];
-$template = $opts['template'];
-
-//echo "<!--";
-$wikitext = file($filename);
-$wikitext =& $wikitext;
-$dom = parse(0);
-//echo "<PRE>";
-//print_r($dom);
-//echo "</PRE>";
-//echo "-->";
-include($template);
+   $wikitext = file($filename) or die("Could not open $filename");
+   $wikitext =& $wikitext;
+   $dom = parse(0, $wikitext);
+   //echo "<PRE>";
+   //print_r($dom);
+   //echo "</PRE>";
+   //echo "-->";
+   ob_start();
+   include($template);
+   $html = ob_get_clean();
+   return($html);
+}
 

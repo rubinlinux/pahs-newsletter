@@ -3,6 +3,7 @@
 
 require_once('libphp-phpmailer/class.phpmailer.php');
 require_once("class.html2text.inc");
+require_once("process.php");
 
 $to = '';
 $file = '';
@@ -26,8 +27,8 @@ if(!array_key_exists("issue", $opts)) {
 
 // TODO: read the directory and just find all language files instead of hardcoding english & spanish
 $files = [ 
-      "newsletter-{$opts['issue']}-en.html",
-      "newsletter-{$opts['issue']}-es.html"
+      "newsletter-v6iXX_en.php" => "newsletter-{$opts['issue']}_en.txt",
+      "newsletter-v6iXX_es.php" => "newsletter-{$opts['issue']}_es.txt"
 ];
 
 if(array_key_exists("send", $opts)) {
@@ -36,10 +37,11 @@ if(array_key_exists("send", $opts)) {
 
 $mail;
 
-foreach($files as $file) {
-    $body             = file_get_contents($file);
+foreach($files as $template=>$file) {
+    //$body             = file_get_contents($file);
+    $body = makenewsletter($file, $template);
     if(!$body) {
-       echo "ERROR: file $file doesn't seem to contain anything\n";
+       die("ERROR: file $file didnt produce a newsletter");
     }
 
     # Protect the email from harmful char - this could be a problem.. 
