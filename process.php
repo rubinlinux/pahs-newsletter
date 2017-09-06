@@ -155,6 +155,7 @@ function wiki2html($node) {
    $ret = preg_replace('/\[\[(http.+)\]\]/', '<a href="$1">$1</a>', $ret);
    $ret = preg_replace('/\*\*(.+)\*\*/', '<b>$1</b>', $ret);
    $ret = preg_replace('/\/\/(.+)\/\//', '<i>$1</i>', $ret);
+   $ret = preg_replace('/\_\_(.+)\_\_/', '<u>$1</u>', $ret);
    if($node['type'] === 'list') {
       $ret = preg_replace('/^  \* ([^\n]+)/sm', '<li><small>$1</small></li>', $ret);
       $ret = "<ul>$ret</ul>";
