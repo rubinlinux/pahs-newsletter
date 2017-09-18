@@ -84,7 +84,7 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                         </td>
                     </tr>
                     <tr><td>&nbsp;</td></tr>
-                    <?php $volunteer = find_element($dom, 'header', 'voluntario');
+                    <?php $volunteer = find_element($dom, 'header', 'Voluntario');
                       if($volunteer) {
                     ?>
                     <tr>
@@ -93,9 +93,9 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                         <small>
                               <?php
                               //print_r($Volunteer);
-                              foreach(find_elements($volunteer['children'], 'listitem') as $event) {
+                              foreach(find_elements($volunteer['children'], 'list') as $event) {
                                  ?>
-                                 <li><?=wiki2html($event)?></li>
+                                 <?=wiki2html($event)?>
                                  <?php
                               }
                               ?>

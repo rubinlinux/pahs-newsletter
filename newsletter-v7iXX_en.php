@@ -87,9 +87,9 @@ $root = find_element($dom, 'header');
                         <small>
                               <?php
                               //print_r($Volunteer);
-                              foreach(find_elements($volunteer['children'], 'listitem') as $event) {
+                              foreach(find_elements($volunteer['children'], 'list') as $event) {
                                  ?>
-                                 <li><?=wiki2html($event)?></li>
+                                 <?=wiki2html($event)?>
                                  <?php
                               }
                               ?>
