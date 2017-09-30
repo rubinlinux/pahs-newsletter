@@ -104,6 +104,7 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                     </tr>
                     <tr><td align="center">
                        <small>
+                      Si usted puede servir como voluntario (a) favor de mandar un coreo electrónico a la coordinadora de voluntarios a <a href="mailto:beckyjthomas@gmail.com">beckyjthomas@gmail.com</a> <br/>
                        Les recordamos que si se anota usted necesita tener sus <a href="https://www.helpcounterweb.com/welcome/apply.php?district=eugene">antecedentes completos</a> en la oficina.
                        </small>
                     </td></tr>
