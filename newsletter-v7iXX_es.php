@@ -84,7 +84,7 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                         </td>
                     </tr>
                     <tr><td>&nbsp;</td></tr>
-                    <?php $volunteer = find_element($dom, 'header', 'voluntario');
+                    <?php $volunteer = find_element($dom, 'header', 'Voluntario');
                       if($volunteer) {
                     ?>
                     <tr>
@@ -93,9 +93,9 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                         <small>
                               <?php
                               //print_r($Volunteer);
-                              foreach(find_elements($volunteer['children'], 'listitem') as $event) {
+                              foreach(find_elements($volunteer['children'], 'list') as $event) {
                                  ?>
-                                 <li><?=wiki2html($event)?></li>
+                                 <?=wiki2html($event)?>
                                  <?php
                               }
                               ?>
@@ -104,6 +104,7 @@ if(!setlocale(LC_TIME, "es_MX.UTF-8")) {
                     </tr>
                     <tr><td align="center">
                        <small>
+                      Si usted puede servir como voluntario (a) favor de mandar un coreo electrónico a la coordinadora de voluntarios a <a href="mailto:beckyjthomas@gmail.com">beckyjthomas@gmail.com</a> <br/>
                        Les recordamos que si se anota usted necesita tener sus <a href="https://www.helpcounterweb.com/welcome/apply.php?district=eugene">antecedentes completos</a> en la oficina.
                        </small>
                     </td></tr>

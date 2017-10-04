@@ -87,9 +87,9 @@ $root = find_element($dom, 'header');
                         <small>
                               <?php
                               //print_r($Volunteer);
-                              foreach(find_elements($volunteer['children'], 'listitem') as $event) {
+                              foreach(find_elements($volunteer['children'], 'list') as $event) {
                                  ?>
-                                 <li><?=wiki2html($event)?></li>
+                                 <?=wiki2html($event)?>
                                  <?php
                               }
                               ?>
@@ -98,6 +98,7 @@ $root = find_element($dom, 'header');
                     </tr>
                     <tr><td align="center">
                        <small>
+                       If you would like to help, email our volunteer coordinator, Becky, at <a href="mailto:beckyjthomas@gmail.com">beckyjthomas@gmail.com</a><br />
                        Please have your <a href="https://www.helpcounterweb.com/welcome/apply.php?district=eugene">background check</a> complete.
                        </small>
                     </td></tr>
