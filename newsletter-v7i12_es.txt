@@ -14,8 +14,9 @@ Cuando hay mal tiempo en el invierno, las escuelas pueden cerrar o comenzar tard
 **Notificaciones de día de nieve**: Nuestro distrito escolar comunicará cualquier cambio de horario de jornada escolar o rutas de autobuses lo mas pronto posible de varias maneras, siempre antes de las 6:30 a.m.
 
   * Regístrese para recibir alertas de mensajes de texto—mande el mensaje “FOLLOW 4JWEATHER” al número 40404.
-  * Oprima la palabra ‘Like’ en la página de Facebook del Distrito Escolar de Eugene 4J (facebook.com/4Jschools)
-  * Revise la página web de 4J (www.4j.lane.edu)
+  * Oprima la palabra ‘Like’ en la página de Facebook del Distrito Escolar de
+    Eugene 4J ([[http://facebook.com/4Jschools]])
+  * Revise la página web de 4J ([[http://www.4j.lane.edu]])
   * Consulta a las estaciones de noticias locales por radio, televisión o internet 
   * Marca el número de teléfono de emergencia en español, 541-790-7738
 
@@ -23,9 +24,12 @@ Cuando hay mal tiempo en el invierno, las escuelas pueden cerrar o comenzar tard
 
 **Horario de clases**:
   * Cierre de escuela (“Schools Closed”) = Los alumnos no asistirán a la escuela. Decisiones sobre actividades extracurriculares se tomarán antes del mediodía.
-  * Retraso de dos horas (“Two-Hour Delay”): Las clases comenzarán dos horas mas tarde y terminarán a la hora regular incluso si el día normalmente hubiera tenido un horario de entrada tarde o de salida temprana. En la escuela Holt el horario de retraso de dos horas sería 10:00-2:10 on M,T, Th, & F and 10:00-1:10 on Wednesday.  La cafetería abrirá a las 9:30 a.m. en dos horas de retraso.
+  * Retraso de dos horas (“Two-Hour Delay”): El horario escolar será de 10:00-2:10. La cafetería abrirá a las 9:30 a.m. en dos horas de retraso.  Si hay un comienzo tardío el miércoles, no terminaremos en nuestra hora habitual de 1:10 p.m.
 
-**Snow Routes**: Algunas rutas de autobuses escolares tienen rutas alternativas de nieve (“snow routes”) que evitan elevaciones mas altas y empinadas. Podrá encontrar más información en www.4j.lane.edu/transportation/snowroutes. 
+**Snow Routes**: Algunas rutas de autobuses escolares tienen rutas
+alternativas de nieve (“snow routes”) que evitan elevaciones mas altas y
+empinadas. Podrá encontrar más información en
+[[http://www.4j.lane.edu/transportation/snowroutes]]. 
 
 **Opción de los padres (“Parent Choice”)**: Por favor considere las condiciones de las carreteras donde vive al tomar la decisión de mandar o no a su estudiante a la escuela. Notifique a la escuela si su estudiante no asistirá a clases. Las decisiones de los padres sobre la ausencia de sus estudiantes por razones de seguridad en el clima inclemente serán respetadas.
 
