@@ -1,20 +1,23 @@
 ===== Volume 7, Issue 23 =====
 ==== Wondering about Weather? ====
+{{*4jweather.png}}
 If the district decides to make a change to the school schedule or bus routes
 due to weather, it is communicated as quickly as possible in several ways, all
 well before 6:30 a.m. If schools and buses are on their regular schedule,
 there will NOT be an announcement.
   * Sign up for text-message alerts — send a text to 40404 that says FOLLOW 4JWEATHER (if you receive extra messages you don’t want, reply SET DISCOVER OFF )
-  * Like Eugene School District 4J on our Facebook page, facebook.com/4Jschools Check the 4J website, www.4j.lane.edu
+  * Check [[https://facebook.com/4Jschools|Facebook]], [[https://twitter.com/4jweather|Twitter]], or the [[http://www.4j.lane.edu|4J website]]
   * Tune in to local news media 
 
 ==== Book Fair ====
+{{*clifford-book.png}}
 The Book Fair has arrived. We'll have extended evening hours
 on Monday from 6-8pm. We will not open the book fair
 immediately after school on Monday. The Book Fair closes at
 8:50 on Friday, March 9th.
 
 ==== Signing In ====
+{{*mousecheck.png}}
 We're seeing an increase in folks signing in correctly each
 morning. Thank you for that! Please remember that you must
 also sign out each time you sign in. Please make sure that
