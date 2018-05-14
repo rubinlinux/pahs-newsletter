@@ -151,7 +151,7 @@ function find_element($dom, $type, $content = null, $recurse = False) {
 function wiki2html($node) {
    
    $ret = htmlspecialchars($node['content']);
-   $ret = preg_replace('/\[\[(http.+)\|(.+)\]\]/', '<a href="$1">$2</a>', $ret);
+   $ret = preg_replace('/\[\[(https?\:\/\/[^]]+)\|([^]]+)\]\]/', '<a href="$1">$2</a>', $ret);
    $ret = preg_replace('/\[\[(http.+)\]\]/', '<a href="$1">$1</a>', $ret);
    $ret = preg_replace('/\*\*(.+)\*\*/', '<b>$1</b>', $ret);
    $ret = preg_replace('/\\\\(.+)\\\\/', '<i>$1</i>', $ret);
