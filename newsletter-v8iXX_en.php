@@ -97,10 +97,10 @@ $root = find_element($dom, 'header');
                       </td>
                     </tr>
                     <tr><td align="center">
-                       <small>
+                       <small><small>
                        If you would like to help, email our volunteer coordinator, Tina, at <a href="mailto:tinasmeow@hotmail.com">tinasmeow@hotmail.com</a><br />
                        Please have your <a href="https://www.helpcounterweb.com/welcome/apply.php?district=eugene">background check</a> complete.
-                       </small>
+                       </small></small>
                     </td></tr>
                     <?php } ?>
                 </table>

@@ -27,8 +27,8 @@ if(!array_key_exists("issue", $opts)) {
 
 // TODO: read the directory and just find all language files instead of hardcoding english & spanish
 $files = [ 
-      "newsletter-v7iXX_en.php" => "newsletter-{$opts['issue']}_en.txt",
-      "newsletter-v7iXX_es.php" => "newsletter-{$opts['issue']}_es.txt"
+      "newsletter-v8iXX_en.php" => "newsletter-{$opts['issue']}_en.txt",
+      #"newsletter-v7iXX_es.php" => "newsletter-{$opts['issue']}_es.txt"
 ];
 
 if(array_key_exists("send", $opts)) {

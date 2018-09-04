@@ -17,7 +17,7 @@ $MAX_LEVELS = 5;
 function parse($level, &$wikitext) {
    global $MAX_LEVELS;
    //global $wikitext;
-   //echo "\n\n$level)DEBUG: Parse called ($level)\n";
+   echo "\n\n$level)DEBUG: Parse called ($level)\n";
    $nodes = array();
    $nodeIndex = 0;
    while(1) {
@@ -31,12 +31,12 @@ function parse($level, &$wikitext) {
       $content = '';
       $children = Array();
 
-      //echo "$level)DEBUG: parsing line: $line\n";
+      echo "$level)DEBUG: parsing line: $line\n";
       $matches = array();
-      if(preg_match('/^(=+) (.+) =+/', $line, $matches)) {
+      if(preg_match('/^(\=\=\=\=+) (.+) \=+/', $line, $matches)) {
          $content = $matches[2];
          $newLevel = $MAX_LEVELS+1 - strlen($matches[1]);
-         //echo "$level)DEBUG: Found a level $newLevel header: $matches[2]\n";
+         echo "$level)DEBUG: Found a level $newLevel header: $matches[2]\n";
          if($newLevel <= $level) {
              // We moved up, put it back on the stack and return for the parent to find
              //echo "$level)DEBUG: new level $newLevel is less or equal to $level so pushing it back\n";
@@ -46,6 +46,7 @@ function parse($level, &$wikitext) {
          $type = 'header';
          $children = parse($newLevel, $wikitext);
          //echo "\n$level)DEBUG: Adding new header node: $content\n";
+         //print_r($children);
          $nodes[$nodeIndex++] = array('type'=>$type, 'level'=>$newLevel, 'content'=>$content, 'children'=>$children);
       }
       elseif(preg_match('/^\{\{(\*?)(.+)\}\}/', $line, $matches)) {
@@ -150,16 +151,31 @@ function find_element($dom, $type, $content = null, $recurse = False) {
 
 function wiki2html($node) {
    
-   $ret = htmlspecialchars($node['content']);
-   $ret = preg_replace('/\[\[(https?\:\/\/[^]]+)\|([^]]+)\]\]/', '<a href="$1">$2</a>', $ret);
-   $ret = preg_replace('/\[\[(http.+)\]\]/', '<a href="$1">$1</a>', $ret);
-   $ret = preg_replace('/\*\*(.+)\*\*/', '<b>$1</b>', $ret);
-   $ret = preg_replace('/\\\\(.+)\\\\/', '<i>$1</i>', $ret);
-   $ret = preg_replace('/\_\_(.+)\_\_/', '<u>$1</u>', $ret);
-   if($node['type'] === 'list') {
-      $ret = preg_replace('/^  \* ([^\n]+)/sm', '<li><small>$1</small></li>', $ret);
-      $ret = "<ul>$ret</ul>";
+   /*
+   if(array_key_exists('children', $node)) {
+      //echo "Found a wiki bit with children nodes, processing them\n";
+      //print_r($node);
+      //exit;
+      $ret = '';
+      foreach($node['children'] as $child) {
+         echo "wiki2html processing a child\n";
+         $ret.= wiki2html($child);
+      }
    }
+   else {
+   */
+      $ret = htmlspecialchars($node['content']);
+      $ret = preg_replace('/\[\[(https?\:\/\/[^]]+)\|([^]]+)\]\]/', '<a href="$1">$2</a>', $ret);
+      $ret = preg_replace('/\[\[(http.+)\]\]/', '<a href="$1">$1</a>', $ret);
+      $ret = preg_replace('/\*\*(.+)\*\*/', '<b>$1</b>', $ret);
+      $ret = preg_replace('/\\\\(.+)\\\\/', '<i>$1</i>', $ret);
+      $ret = preg_replace('/\_\_(.+)\_\_/', '<u>$1</u>', $ret);
+      $ret = preg_replace('/\=\=\= *(.+) *\=\=\=+/', '<h5>$1</h5>', $ret);
+      if($node['type'] === 'list') {
+         $ret = preg_replace('/^  \* ([^\n]+)/sm', '<li><small>$1</small></li>', $ret);
+         $ret = "<ul>$ret</ul>";
+      }
+   //}
    return $ret;
 }
 
